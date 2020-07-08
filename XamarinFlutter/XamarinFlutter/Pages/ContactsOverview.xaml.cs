@@ -17,7 +17,12 @@ namespace XamarinFlutter.Pages
         protected override async void OnAppearing()
         {
             base.OnAppearing();
+            //var contactList = await App.Database.GetContactsAsync();
+            //if (contactList.Count > 0)
+            //{
             listView_contacts.ItemsSource = await App.Database.GetContactsAsync();
+            //}
+
         }
 
         async void OnContactAddedClicked(object sender, EventArgs e)
@@ -28,9 +33,12 @@ namespace XamarinFlutter.Pages
             });
         }
 
-        async void OnListViewItemSelected(object sender, EventArgs e)
+        async void OnListViewItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-
+            if (e.SelectedItem != null)
+            {
+                await Navigation.PushAsync(new ContactDetails((Contact)e.SelectedItem));
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XamarinFlutter.Data;
@@ -25,12 +26,12 @@ namespace XamarinFlutter
         public App()
         {
             InitializeComponent();
-
             MainPage = new NavigationPage(new ContactsOverview());
         }
 
-        protected override void OnStart()
+        protected override /*async*/ void OnStart()
         {
+            //await Database.DeleteContacts();
         }
 
         protected override void OnSleep()

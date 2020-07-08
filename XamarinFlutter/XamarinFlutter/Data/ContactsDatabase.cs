@@ -1,6 +1,7 @@
 ﻿using SQLite;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using XamarinFlutter.Models;
@@ -41,6 +42,15 @@ namespace XamarinFlutter.Data
         public Task<int> DeleteContact(Contact contact)
         {
             return _database.DeleteAsync(contact);
+        }
+
+        public async Task DeleteContacts()
+        {
+            var allContacts =  await GetContactsAsync();
+            foreach (var contact in allContacts)
+            {
+                await DeleteContact(contact);
+            }
         }
     }
 

@@ -12,7 +12,8 @@
               ItemSelected="OnListViewItemSelected">
         <ListView.ItemTemplate>
             <DataTemplate>
-                <ImageCell Text="{Binding Name}"/>
+                <ImageCell Text="{Binding Name}"
+                           ImageSource="{Binding PathToPhoto}"/>
             </DataTemplate>
         </ListView.ItemTemplate>
     </ListView>

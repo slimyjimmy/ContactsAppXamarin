@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Plugin.Media;
+using Plugin.Media.Abstractions;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +16,7 @@ namespace XamarinFlutter.Pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class NewContact : ContentPage
     {
+        private string pathToPhoto;
         public NewContact()
         {
             InitializeComponent();
@@ -24,6 +28,7 @@ namespace XamarinFlutter.Pages
             {
                 await App.Database.SaveContactAsync(new Contact
                 {
+                    PathToPhoto = pathToPhoto,
                     Name = Editor_Name.Text,
                     Number = Editor_Number.Text
                 });
@@ -31,9 +36,11 @@ namespace XamarinFlutter.Pages
             await Navigation.PopAsync();
         }
 
-        void OnCameraButtonClicked(object sender, EventArgs e)
+        async void OnCameraButtonClicked(object sender, EventArgs e)
         {
-
+            var test = await CrossMedia.Current.Initialize();
+            var file = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions());
+            pathToPhoto = file.Path.ToString();
         }
     }
 }

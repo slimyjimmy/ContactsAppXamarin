@@ -1,11 +1,58 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:local="clr-namespace:XamarinFlutter" 
              x:Class="XamarinFlutter.Pages.ContactDetails"
-             Title="Note Entry">
-    <StackLayout Margin="20">
-        <Label Text="{Binding Name}"
-                HeightRequest="100" />
-        <Label Text="{Binding Number}" />
-    </StackLayout>
+             Title="Contact">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Delete"
+                 Order="Primary"
+                 Priority="0"
+                 Clicked="OnClickedDeleteButton"/>
+    </ContentPage.ToolbarItems>
+    <AbsoluteLayout VerticalOptions="FillAndExpand"  
+                HorizontalOptions="FillAndExpand">
+        <StackLayout Margin="20">
+            <Image x:Name="Image_Avatar"
+               WidthRequest="200"
+               HeightRequest="200"/>
+            <Label x:Name="Label_Name"
+                Text="{Binding Name}"
+                FontSize="40.0"
+                HorizontalOptions="Center"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.33*" />
+                    <ColumnDefinition Width="0.33*" />
+                    <ColumnDefinition Width="0.33*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50" />
+                </Grid.RowDefinitions>
+                <Label Text="📞">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnClickedTelephoneLabel"/>
+                    </Label.GestureRecognizers>
+                </Label>
+                <Label Grid.Column="1"
+                   Text="✉"
+                   HorizontalOptions="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnClickedSMSLabel"/>
+                    </Label.GestureRecognizers>
+                </Label>
+                <Label Grid.Column="2"
+                   Text="📹"
+                   HorizontalOptions="End"/>
+            </Grid>
+            <Label x:Name="Label_Number"/>
+        </StackLayout>
+        <ImageButton
+            Source="{local:ImageResource XamarinFlutter.images.floatingActionButtonEdit.png}"
+            BackgroundColor="Transparent"
+            AbsoluteLayout.LayoutFlags="PositionProportional"  
+            AbsoluteLayout.LayoutBounds=".95,.95,80,80" 
+            Clicked="OnClickedEditButton"/>
+    </AbsoluteLayout>
 </ContentPage>
